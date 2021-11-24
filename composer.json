@@ -1,0 +1,22 @@
+{
+    "name": "mrwanghongda/sms-sdk",
+    "description": "TencentSms,SmsBao,SmsServices",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mrwanghongda\\SmsSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wanghongda",
+            "email": "wanghongda9577@sina.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "phpunit/phpunit": "^9.5.10",
+        "tencentcloud/tencentcloud-sdk-php": "^3.0"
+    }
+}
