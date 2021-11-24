@@ -4,6 +4,9 @@ namespace Mrwanghongda\SmsSdk\Sms\Services;
 
 use Mrwanghongda\SmsSdk\Sms\Interfaces\SmsInterface;
 
+/**
+ *  SmsBaoService 短信宝短信发送类
+ */
 class SmsBaoService implements SmsInterface
 {
     public $statusStr = array(
@@ -20,17 +23,12 @@ class SmsBaoService implements SmsInterface
 
     const SMS_API = "http://api.smsbao.com/";
 
-    public function send($tel)
+    public function send(array $config)
     {
         // TODO: Implement send() method.
-        $user = "wanghongda"; //短信平台帐号
-        $pass = md5("wanghongda..1203"); //短信平台密码
-
-        $code = mt_rand(1000, 9999);
-        $content = "【短信宝】您的验证码是" . $code . ",3分钟有效。";//要发送的短信内容
-
-        $sendurl = self::SMS_API . "sms?u=" . $user . "&p=" . $pass . "&m=" . $tel . "&c=" . urlencode($content);
+        $sendurl = self::SMS_API . "sms?u=" . $config['secretId'] . "&p=" . md5($config['secretKey']) . "&m=" . $config['tel'] . "&c=" . urlencode($config['content']);
         $result = file_get_contents($sendurl);
+
         return $this->statusStr[$result];
     }
 }

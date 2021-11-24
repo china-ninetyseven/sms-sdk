@@ -6,8 +6,8 @@ interface SmsInterface
 {
     /**
      * 短信发送
-     * @param $tel
+     * @param array $config
      * @return mixed
      */
-    public function send($tel);
+    public function send(array $config);
 }
