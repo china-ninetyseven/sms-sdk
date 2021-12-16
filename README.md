@@ -36,7 +36,7 @@ composer require mrwanghongda/sms-sdk
 
 
     //工厂模式
-    $smsObj = (new SmsFactory(SmsFactory::SMS_TENCENT))->getSms();
+    $smsObj = (new SmsFactory(SmsFactory::SMS_TENCENT))->getSmsService();
     /* 必要步骤：
           * 实例化一个认证对象，入参需要传入腾讯云账户密钥对secretId，secretKey。
           * 这里采用的是从环境变量读取的方式，需要在环境变量中先设置这两个值。
