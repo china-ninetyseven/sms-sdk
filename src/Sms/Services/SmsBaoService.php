@@ -2,13 +2,19 @@
 
 namespace Mrwanghongda\SmsSdk\Sms\Services;
 
+use Mrwanghongda\SmsSdk\Sms\Common\BaseSms;
 use Mrwanghongda\SmsSdk\Sms\Interfaces\SmsInterface;
 
 /**
  *  SmsBaoService 短信宝短信发送类
  */
-class SmsBaoService implements SmsInterface
+class SmsBaoService extends BaseSms implements SmsInterface
 {
+    /**
+     * 短信宝发送成功状态码
+     */
+    const SMSBAO_OK = 0;
+
     public $statusStr = array(
         "0" => "短信发送成功",
         "-1" => "参数不全",
@@ -29,6 +35,10 @@ class SmsBaoService implements SmsInterface
         $sendurl = self::SMS_API . "sms?u=" . $config['secretId'] . "&p=" . md5($config['secretKey']) . "&m=" . $config['tel'] . "&c=" . urlencode($config['content']);
         $result = file_get_contents($sendurl);
 
-        return $this->statusStr[$result];
+        if($result == self::SMSBAO_OK){
+            $result = 200;
+        }
+
+        return $this->toJsonData($result);
     }
 }

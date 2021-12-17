@@ -3,6 +3,7 @@
 namespace Mrwanghongda\SmsSdk\Sms\Services;
 
 // 导入对应产品模块的client
+use Mrwanghongda\SmsSdk\Sms\Common\BaseSms;
 use Mrwanghongda\SmsSdk\Sms\Interfaces\SmsInterface;
 use TencentCloud\Sms\V20210111\SmsClient;
 
@@ -18,8 +19,18 @@ use TencentCloud\Common\Profile\HttpProfile;
 /**
  *  TencentService 腾讯短信发送类
  */
-class TencentService implements SmsInterface
+class TencentService extends BaseSms implements SmsInterface
 {
+    /**
+     *  腾讯云发送成功状态码
+     */
+    const TENCENT_OK = 'ok';
+
+    /**
+     *  腾讯云发送成功状态码
+     */
+    public static $TencentCode = 0;
+
     public function send(array $config)
     {
         try {
@@ -57,7 +68,14 @@ class TencentService implements SmsInterface
             $resp = $client->SendSms($req);
 
             // 输出json格式的字符串回包
-            return $resp->toJsonString();
+            $respJson = $resp->toJsonString();
+            $respData = json_decode($respJson, true);
+
+            if ($respData['SendStatusSet'][0]['Code'] == self::TENCENT_OK) {
+                self::$TencentCode = 200;
+            }
+
+            return $this->toJsonData(self::$TencentCode);
         } catch (TencentCloudSDKException $e) {
             return $e;
         }
