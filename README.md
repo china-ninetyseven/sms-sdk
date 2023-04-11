@@ -11,7 +11,7 @@ Configure parameters to quickly send SMS on different platforms
 ## Installation
 
 ```php
-composer require mrwanghongda/sms-sdk
+composer require china-ninetyseven/sms-sdk
 ```
 
 ## example
